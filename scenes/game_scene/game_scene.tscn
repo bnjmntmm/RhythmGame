@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dunn12rt18sat"]
+
+[ext_resource type="Script" uid="uid://bfifvjgalmb8y" path="res://scenes/game_scene/game_scene.gd" id="1_pwder"]
+[ext_resource type="PackedScene" uid="uid://c8jsepwdonp6m" path="res://Globals/Sequence.tscn" id="2_72663"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lxttp"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_w5aja"]
+sky_material = SubResource("ProceduralSkyMaterial_lxttp")
+
+[sub_resource type="Environment" id="Environment_onqr8"]
+background_mode = 2
+sky = SubResource("Sky_w5aja")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="GAME" type="Node"]
+script = ExtResource("1_pwder")
+
+[node name="Sequence" parent="." instance=ExtResource("2_72663")]
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="World"]
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_onqr8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="UILAYER" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="UILAYER"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
