@@ -1,13 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8jsepwdonp6m"]
+[gd_scene load_steps=2 format=3 uid="uid://c8jsepwdonp6m"]
 
 [ext_resource type="Script" uid="uid://b106fyjk1bam8" path="res://Globals/Sequence.gd" id="1_vmhx8"]
-[ext_resource type="AudioStream" uid="uid://c5rrsy6mc6nu4" path="res://assets/sounds/c6.mp3" id="2_ulpuf"]
-[ext_resource type="AudioStream" uid="uid://bl2v0tt3cqvrb" path="res://assets/sounds/d6.mp3" id="3_rgvnt"]
-[ext_resource type="AudioStream" uid="uid://cruoc5yrgrx5p" path="res://assets/sounds/e6.mp3" id="4_cn4i8"]
-[ext_resource type="AudioStream" uid="uid://b44io2o3qewom" path="res://assets/sounds/g6.mp3" id="5_7drdy"]
 
 [node name="Sequence" type="Node"]
 script = ExtResource("1_vmhx8")
-sounds = Array[AudioStream]([ExtResource("2_ulpuf"), ExtResource("3_rgvnt"), ExtResource("4_cn4i8"), ExtResource("5_7drdy")])
 
 [node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
