@@ -8,7 +8,7 @@ const NOTE_OBJECT = preload("res://scenes/NoteObject/note_object.tscn")
 
 func _ready() -> void:
 	sequenceGenerator.played_sound.connect(print_current_sound)
-	var sequence = sequenceGenerator.generate_random_sequence(4)
+	var sequence = sequenceGenerator.generate_random_sequence(4) ## amount of notes in a sequence
 	sequenceGenerator.play_sequence(sequence)
 	
 
