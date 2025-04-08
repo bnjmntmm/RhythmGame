@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8jsepwdonp6m"]
-
-[ext_resource type="Script" uid="uid://b106fyjk1bam8" path="res://Globals/Sequence.gd" id="1_vmhx8"]
-
-[node name="Sequence" type="Node"]
-script = ExtResource("1_vmhx8")
-
-[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
