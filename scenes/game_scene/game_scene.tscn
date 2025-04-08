@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://wu517bdoesek"]
+[gd_scene load_steps=9 format=3 uid="uid://wu517bdoesek"]
 
 [ext_resource type="Script" uid="uid://b8xqhkj7lccpt" path="res://scripts/input_controller.gd" id="1_pwder"]
+[ext_resource type="AudioStream" uid="uid://c5rrsy6mc6nu4" path="res://assets/sounds/c6.mp3" id="2_ducuf"]
+[ext_resource type="AudioStream" uid="uid://bl2v0tt3cqvrb" path="res://assets/sounds/d6.mp3" id="3_j8flk"]
+[ext_resource type="AudioStream" uid="uid://cruoc5yrgrx5p" path="res://assets/sounds/e6.mp3" id="4_wmtvo"]
+[ext_resource type="AudioStream" uid="uid://b44io2o3qewom" path="res://assets/sounds/g6.mp3" id="5_201br"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lxttp"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -20,6 +24,12 @@ glow_enabled = true
 [node name="InputController" type="Node" parent="."]
 script = ExtResource("1_pwder")
 input_strings = Array[String](["Note_Q", "Note_W", "Note_E", "Note_R"])
+sounds = Dictionary[String, AudioStream]({
+"Note_E": ExtResource("4_wmtvo"),
+"Note_Q": ExtResource("2_ducuf"),
+"Note_R": ExtResource("5_201br"),
+"Note_W": ExtResource("3_j8flk")
+})
 
 [node name="World" type="Node3D" parent="."]
 
