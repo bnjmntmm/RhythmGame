@@ -2,7 +2,7 @@ extends Node
 class_name NoteInput
 
 signal released_note(note_name, duration)
-
+signal pressed_note(note_name)
 
 @export var inputName = ""
 var _time_when_pushed_down = 0
@@ -21,6 +21,7 @@ func _process(delta: float) -> void:
 		_time_when_pushed_down = Time.get_ticks_msec()
 		
 		print("Pressed ", inputName)
+		pressed_note.emit(inputName)
 	if Input.is_action_just_released(inputName):
 		is_pressed = false
 		%AudioStreamPlayer.stop()
