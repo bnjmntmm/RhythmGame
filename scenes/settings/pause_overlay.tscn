@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://r853kbmqbp2l"]
+
+[ext_resource type="PackedScene" uid="uid://d0yukij1tj0vj" path="res://scenes/settings/game_settings.tscn" id="1_7cmdg"]
+[ext_resource type="Script" uid="uid://duyve8vapnddn" path="res://scenes/settings/pause_overlay.gd" id="1_wpxwg"]
+
+[node name="PauseOverlay" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wpxwg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Game Paused"
+horizontal_alignment = 1
+
+[node name="SettingsContainer" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="GameSettings" parent="VBoxContainer/SettingsContainer" instance=ExtResource("1_7cmdg")]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer/SettingsContainer"]
+layout_mode = 2
+text = "Return to Menu"
+
+[node name="MenuContainer" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="VBoxContainer/MenuContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume Game"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/MenuContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer/MenuContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Leave Game"
