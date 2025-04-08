@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dagv1b3uqeepv"]
+
+[ext_resource type="Script" uid="uid://cbx1rjkwsi38g" path="res://scenes/main_menu/fade_overlay/fade_overlay.gd" id="1_xtbxv"]
+
+[node name="FadeOverlay" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_xtbxv")
+fade_in_duration = 1.0

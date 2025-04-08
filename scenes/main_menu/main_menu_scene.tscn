@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://bv24voc31k07j"]
+
+[ext_resource type="Script" uid="uid://84mcrdmd1ear" path="res://scenes/main_menu/main_menu_scene.gd" id="1_nleev"]
+[ext_resource type="Texture2D" uid="uid://t887wstgh7kh" path="res://icon.svg" id="1_ocixh"]
+[ext_resource type="PackedScene" uid="uid://wu517bdoesek" path="res://scenes/game_scene/game_scene.tscn" id="2_c05yd"]
+[ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="2_lx82y"]
+[ext_resource type="PackedScene" uid="uid://bydp7ekh305yk" path="res://scenes/settings/game_setting_scene.tscn" id="3_026m6"]
+
+[node name="MainMenuScene" type="Node2D"]
+script = ExtResource("1_nleev")
+game_scene = ExtResource("2_c05yd")
+settings_scene = ExtResource("3_026m6")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="GameLogo" type="CenterContainer" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CenterContainer/VBoxContainer/GameLogo"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="UI/CenterContainer/VBoxContainer/GameLogo/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_ocixh")
+stretch_mode = 2
+
+[node name="NewGameButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="SettingsButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Leave Game"
+
+[node name="Credits" type="MarginContainer" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/CenterContainer/VBoxContainer/Credits"]
+layout_mode = 2
+text = "Made by"
+horizontal_alignment = 1
+
+[node name="FadeOverlay" parent="UI" instance=ExtResource("2_lx82y")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+bus = &"BGMusic"

@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0yukij1tj0vj"]
+
+[ext_resource type="PackedScene" uid="uid://07tb5dry575w" path="res://scenes/settings/float_range_game_settings_option.tscn" id="1_4igfj"]
+
+[node name="GameSettings" type="VBoxContainer"]
+offset_right = 1275.0
+offset_bottom = 231.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" parent="MarginContainer/GridContainer" instance=ExtResource("1_4igfj")]
+layout_mode = 2
+property = "mastervolume"
+
+[node name="BeatsVolumeLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Beats Volume"
+
+[node name="BeatsVolumeSlider" parent="MarginContainer/GridContainer" instance=ExtResource("1_4igfj")]
+layout_mode = 2
+property = "beatsvolume"
+
+[node name="BGMusicVolumeLabel" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Background Music Volume"
+
+[node name="BGMusicVolumeSlider" parent="MarginContainer/GridContainer" instance=ExtResource("1_4igfj")]
+layout_mode = 2
+property = "bgmusicvolume"

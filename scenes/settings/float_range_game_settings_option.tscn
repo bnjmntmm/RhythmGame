@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://07tb5dry575w"]
+
+[ext_resource type="Script" uid="uid://dr65mr064jqf5" path="res://scenes/settings/float_range_game_settings_option.gd" id="1_b88o0"]
+
+[node name="FloatRangeGameSettingsOption" type="HSlider"]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 8.0
+offset_bottom = 16.0
+script = ExtResource("1_b88o0")
+
+[connection signal="value_changed" from="." to="." method="_on_float_range_game_settings_option_value_changed"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0lp4676g63um"]
+
+[ext_resource type="PackedScene" uid="uid://dn54nqif4i4ef" path="res://scenes/boot/splash/boot_splash_scene.tscn" id="1_r1f6q"]
+[ext_resource type="PackedScene" uid="uid://dhabp8jcwwpfd" path="res://scenes/boot/splash/godot_logo.tscn" id="2_pnyg1"]
+[ext_resource type="PackedScene" uid="uid://bv24voc31k07j" path="res://scenes/main_menu/main_menu_scene.tscn" id="3_pnyg1"]
+
+[node name="SplashScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BootSplashScene" parent="." instance=ExtResource("1_r1f6q")]
+layout_mode = 1
+logo_node = ExtResource("2_pnyg1")
+next_scene = ExtResource("3_pnyg1")

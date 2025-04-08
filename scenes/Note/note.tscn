@@ -7,3 +7,4 @@ script = ExtResource("1_30t0l")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
+bus = &"Beats"
