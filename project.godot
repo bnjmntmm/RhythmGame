@@ -12,7 +12,7 @@ config_version=5
 
 config/name="RhythmGame"
 run/main_scene="uid://c0lp4676g63um"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 boot_splash/fullsize=false
@@ -25,8 +25,6 @@ UserSettings="*res://scripts/Globals/UserSettings.gd"
 
 [display]
 
-window/size/window_width_override=1920
-window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 
