@@ -124,19 +124,24 @@ shadow_mesh = SubResource("ArrayMesh_08kpr")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4pp8"]
 diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(0.568627, 0.611765, 0.85098, 1)
+metallic_specular = 0.0
+roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qnyyn"]
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.364706, 0.392157, 0.545098, 1)
-roughness = 0.8
+metallic_specular = 0.0
+roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dqio"]
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.192157, 0.0156863, 0.364706, 1)
-roughness = 0.31
+metallic_specular = 0.0
+roughness = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8774s"]
 resource_name = "Hard Plastic.001"
@@ -182,6 +187,8 @@ cull_mode = 2
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.192157, 0.0156863, 0.364706, 1)
+metallic_specular = 0.0
+roughness = 0.0
 
 [node name="SpeakerXL_CelShaded" type="Node3D"]
 
@@ -200,6 +207,6 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_vefv2")
 
 [node name="Decal" type="Decal" parent="."]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, -0.933499, -5.64786e-08, -0.35858, -0.35858, 2.51305e-08, 0.933499, 0.798431, 0.858195, -1.12644)
-size = Vector3(2, 0.281348, 1.087)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, -0.933499, -5.64786e-08, -0.35858, -0.35858, 2.51305e-08, 0.933499, 0.830194, 0.858195, -1.15344)
+size = Vector3(2, 0.217822, 1.087)
 texture_albedo = ExtResource("1_qnyyn")
