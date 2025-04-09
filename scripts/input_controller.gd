@@ -7,6 +7,7 @@ const NOTE = preload("res://scenes/Note/note.tscn")
 
 @export var world_light : DirectionalLight3D
 
+
 var colors : Dictionary = {
 	"Note_Q" : Color.RED,
 	"Note_W" : Color.BLUE,
@@ -14,8 +15,8 @@ var colors : Dictionary = {
 	"Note_R" : Color.YELLOW
 }
 
-
 @onready var lightsNode: Node3D = $"../World/Lights"
+
 
 
 func _ready() -> void:
