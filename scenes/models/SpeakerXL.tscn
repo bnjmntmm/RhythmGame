@@ -1,22 +1,22 @@
-[gd_scene load_steps=13 format=4 uid="uid://k827t75mhgct"]
+[gd_scene load_steps=14 format=4 uid="uid://1cvxxsd5vs50"]
+
+[ext_resource type="Texture2D" uid="uid://bd6yu1jk2ydng" path="res://assets/sprites/spray_decal_funky.png" id="1_qnyyn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8hhgf"]
 resource_name = "Membran inner"
 cull_mode = 2
 shading_mode = 0
-albedo_color = Color(1, 0.996078, 0.984314, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wlnt"]
 resource_name = "Membran"
 cull_mode = 2
-albedo_color = Color(0.192157, 0.0156863, 0.364706, 1)
+albedo_color = Color(0.280549, 0.270794, 0.284087, 1)
 roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ijmue"]
 resource_name = "Hard Plastic Black"
 cull_mode = 2
 shading_mode = 0
-albedo_color = Color(0.164706, 0.0156863, 0.313726, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_08kpr"]
 _surfaces = [{
@@ -122,18 +122,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_08kpr")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4pp8"]
+diffuse_mode = 3
+albedo_color = Color(0.568627, 0.611765, 0.85098, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qnyyn"]
-albedo_color = Color(0.192157, 0.0156863, 0.364706, 1)
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.364706, 0.392157, 0.545098, 1)
+roughness = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dqio"]
-albedo_color = Color(0.364706, 0.392157, 0.545098, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vefv2"]
-albedo_color = Color(0.164706, 0.0156863, 0.313726, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4pp8"]
-cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(0.192157, 0.0156863, 0.364706, 1)
+roughness = 0.31
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8774s"]
 resource_name = "Hard Plastic.001"
@@ -174,17 +177,29 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_b10qj")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vefv2"]
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.192157, 0.0156863, 0.364706, 1)
+
 [node name="SpeakerXL_CelShaded" type="Node3D"]
 
 [node name="SpeakerXl_001" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1.426, 0, 1.49788e-07, 0, 1.922, 0, -2.1532e-07, 0, -0.992, -0.0114331, 0.881199, -1)
 mesh = SubResource("ArrayMesh_yvj1u")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_qnyyn")
-surface_material_override/1 = SubResource("StandardMaterial3D_qnyyn")
-surface_material_override/2 = SubResource("StandardMaterial3D_4dqio")
-surface_material_override/3 = SubResource("StandardMaterial3D_vefv2")
+surface_material_override/0 = SubResource("StandardMaterial3D_u4pp8")
+surface_material_override/1 = SubResource("StandardMaterial3D_u4pp8")
+surface_material_override/2 = SubResource("StandardMaterial3D_qnyyn")
+surface_material_override/3 = SubResource("StandardMaterial3D_4dqio")
 
 [node name="SpeakerXl_002" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_u4pp8")
 mesh = SubResource("ArrayMesh_uuc6a")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_vefv2")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, -0.933499, -5.64786e-08, -0.35858, -0.35858, 2.51305e-08, 0.933499, 0.798431, 0.858195, -1.12644)
+size = Vector3(2, 0.281348, 1.087)
+texture_albedo = ExtResource("1_qnyyn")
