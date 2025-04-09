@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://wu517bdoesek"]
+[gd_scene load_steps=17 format=3 uid="uid://wu517bdoesek"]
 
 [ext_resource type="Script" uid="uid://b8xqhkj7lccpt" path="res://scripts/input_controller.gd" id="1_pwder"]
 [ext_resource type="Script" uid="uid://bfifvjgalmb8y" path="res://scenes/game_scene/game_scene.gd" id="1_wmtvo"]
@@ -8,7 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://b44io2o3qewom" path="res://assets/sounds/g6.mp3" id="5_201br"]
 [ext_resource type="Script" uid="uid://b85udssfj4tqa" path="res://scripts/lights.gd" id="6_j8flk"]
 [ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="8_201br"]
+[ext_resource type="PackedScene" uid="uid://ccw2y3u65a5xc" path="res://scenes/DJ/dj.tscn" id="8_dgii4"]
 [ext_resource type="PackedScene" uid="uid://r853kbmqbp2l" path="res://scenes/settings/pause_overlay.tscn" id="9_j6s53"]
+[ext_resource type="Script" uid="uid://cqq0mj6uye47y" path="res://scripts/Globals/Songs.gd" id="11_hqmgi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lxttp"]
 sky_top_color = Color(0.11443, 0.14506, 0.187655, 1)
@@ -47,6 +49,10 @@ sounds = Dictionary[String, AudioStream]({
 })
 world_light = NodePath("../World/DirectionalLight3D")
 
+[node name="Songs" type="Node" parent="."]
+script = ExtResource("11_hqmgi")
+metadata/_custom_type_script = "uid://cqq0mj6uye47y"
+
 [node name="World" type="Node3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
@@ -81,12 +87,15 @@ spot_range = 20.0
 spot_angle = 31.54
 
 [node name="Camera3D" type="Camera3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 0.967046, 0.254602, 0, -0.254602, 0.967046, 0, 6.56169, 14.5392)
+transform = Transform3D(1, 0, 0, 0, 0.967046, 0.254602, 0, -0.254602, 0.967046, 0, 3.3755, 7.35382)
 current = true
 
 [node name="Floor" type="MeshInstance3D" parent="World"]
 mesh = SubResource("CylinderMesh_ducuf")
 surface_material_override/0 = SubResource("StandardMaterial3D_j8flk")
+
+[node name="DJ" parent="World" instance=ExtResource("8_dgii4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72869, 0, 0)
 
 [node name="UILAYER" type="CanvasLayer" parent="."]
 
@@ -98,3 +107,11 @@ visible = false
 unique_name_in_owner = true
 process_mode = 2
 visible = false
+
+[node name="UserShouldStartLabel" type="Label" parent="UILAYER"]
+visible = false
+offset_left = 443.0
+offset_top = 231.0
+offset_right = 701.0
+offset_bottom = 254.0
+text = "NOW YOU SHOULD PLAY THE SAME"
