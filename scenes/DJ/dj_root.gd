@@ -1,5 +1,7 @@
 extends Node3D
+
 const NOTE = preload("res://scenes/Note/note.tscn")
+
 @onready var lights_node: Node3D = $"../Lights"
 
 @export var sounds : Dictionary[String, AudioStream]
@@ -18,6 +20,7 @@ func _ready() -> void:
 		new_note.inputName = input_string
 		new_note.name = input_string
 		new_note.sound = sounds[input_string]
+		new_note.is_DJ = true
 		add_child(new_note)
 
 func async_play_song_sequence(sequence: Array) -> Array:

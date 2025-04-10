@@ -14,7 +14,7 @@ func _ready() -> void:
 	fade_overlay.visible = true
 	#pause_overlay.game_exited.connect(_save_game) ## if we wanna have save stats
 	songKeys = songNode.songs.keys()
-	#playedSongByDJ = await dj_node.async_play_song_sequence(songNode.songs[songKeys[0]])
+	playedSongByDJ = await dj_node.async_play_song_sequence(songNode.songs[songKeys[0]])
 	#user_should_start_label.show()
 
 func _input(event) -> void:
