@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://wu517bdoesek"]
+[gd_scene load_steps=21 format=4 uid="uid://wu517bdoesek"]
 
 [ext_resource type="Script" uid="uid://b8xqhkj7lccpt" path="res://scripts/input_controller.gd" id="1_pwder"]
 [ext_resource type="Script" uid="uid://bfifvjgalmb8y" path="res://scenes/game_scene/game_scene.gd" id="1_wmtvo"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bmatuoywvr4sf" path="res://scenes/game_scene/stages.gd" id="10_3di6p"]
 [ext_resource type="PackedScene" uid="uid://c5yucolh3h3yb" path="res://scenes/Player/player.tscn" id="10_jytbd"]
 [ext_resource type="Script" uid="uid://cqq0mj6uye47y" path="res://scripts/Globals/Songs.gd" id="11_hqmgi"]
+[ext_resource type="PackedScene" uid="uid://dnhujf7fs0j61" path="res://scenes/game_over/game_over_screen.tscn" id="14_iprv4"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_hqmgi"]
 _surfaces = [{
@@ -158,3 +159,9 @@ offset_top = 231.0
 offset_right = 701.0
 offset_bottom = 254.0
 text = "NOW YOU SHOULD PLAY THE SAME"
+
+[node name="GameOverScreen" parent="UILAYER" instance=ExtResource("14_iprv4")]
+visible = false
+menu_scene = "res://scenes/main_menu/main_menu_scene.tscn"
+
+[connection signal="on_complete_fade_out" from="UILAYER/FadeOverlay" to="." method="_on_fade_overlay_on_complete_fade_out"]
