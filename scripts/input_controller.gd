@@ -1,5 +1,8 @@
 extends Node
 
+signal player_at_dj
+signal player_thrown_out
+
 const NOTE = preload("res://scenes/Note/note.tscn")
 @export var short_press_duration : float = 0.12
 @export var input_strings : Array[String]
@@ -68,6 +71,7 @@ func move_to_next_stage():
 			print("YOU REACHED THE DJ")
 	else:
 		print("YOU AT THE DJ")
+		player_at_dj.emit()
 	
 func move_to_prio_stage():
 	print("called prior stage")
@@ -80,10 +84,12 @@ func move_to_prio_stage():
 		var stage = stages.get_child(current_stage +1)
 		player.target_position = stage.global_position
 		player.should_move = true
+		## maybe we should lets 
 		if current_stage == -1:
 			print("YOU REACHED THE ENTRANCE")
 	else:
 		print("YOU GOT KICKED OUT")
+		player_thrown_out.emit()
 	pass
 
 ## light should turn off again?
