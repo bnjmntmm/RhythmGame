@@ -24,6 +24,7 @@ func _process(_delta):
 	if interuptable and Input.is_action_just_pressed("exit"):
 		_change_scene()
 	
+
 func _fade_out():
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)

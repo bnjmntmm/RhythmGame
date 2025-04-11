@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not is_DJ:
+	if is_DJ:
 		if Input.is_action_just_pressed(inputName):
 			%AudioStreamPlayer.play()
 			is_pressed = true
