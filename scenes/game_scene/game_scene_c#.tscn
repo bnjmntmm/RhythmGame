@@ -1,0 +1,21 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2aiomujijr4u"]
+
+[ext_resource type="Script" uid="uid://bsua1ua77vwgq" path="res://scenes/game_scene/GameSceneTranslated.cs" id="1_xlvqg"]
+[ext_resource type="AudioStream" uid="uid://qk8d0mxiipv5" path="res://assets/sounds/synth_c.wav" id="2_0a744"]
+[ext_resource type="PackedScene" uid="uid://cw316fthhocn1" path="res://scenes/DJ/dj_c#.tscn" id="2_vuyi1"]
+[ext_resource type="AudioStream" uid="uid://pbu17eprkojn" path="res://assets/sounds/synth_e.wav" id="3_srrh1"]
+[ext_resource type="PackedScene" uid="uid://bddnqcxb37jlx" path="res://scenes/Player/player_c#.tscn" id="3_vuyi1"]
+[ext_resource type="AudioStream" uid="uid://dxal3hxe4aclh" path="res://assets/sounds/synth_f#.wav" id="4_fgs2t"]
+[ext_resource type="AudioStream" uid="uid://ctget4vxmqfk0" path="res://assets/sounds/synth_b.wav" id="5_ivf0w"]
+
+[node name="Game_Scene_C#" type="Node3D"]
+script = ExtResource("1_xlvqg")
+_beatsPerMinute = 120
+_sounds = Array[AudioStream]([ExtResource("2_0a744"), ExtResource("3_srrh1"), ExtResource("4_fgs2t"), ExtResource("5_ivf0w")])
+_noteColors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1)
+
+[node name="DJ_C#" parent="." instance=ExtResource("2_vuyi1")]
+
+[node name="Player_C#" parent="." instance=ExtResource("3_vuyi1")]
+
+[node name="PlayerSounds" type="AudioStreamPlayer" parent="."]

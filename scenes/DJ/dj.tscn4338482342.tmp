@@ -1,0 +1,20 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccw2y3u65a5xc"]
+
+[ext_resource type="Script" uid="uid://k45d6hbhqk8" path="res://scenes/DJ/dj_root.gd" id="1_5dmrc"]
+[ext_resource type="AudioStream" uid="uid://cruoc5yrgrx5p" path="res://assets/sounds/e6.mp3" id="2_bmpte"]
+[ext_resource type="AudioStream" uid="uid://c5rrsy6mc6nu4" path="res://assets/sounds/c6.mp3" id="3_wrlig"]
+[ext_resource type="AudioStream" uid="uid://b44io2o3qewom" path="res://assets/sounds/g6.mp3" id="4_ndg1b"]
+[ext_resource type="AudioStream" uid="uid://bl2v0tt3cqvrb" path="res://assets/sounds/d6.mp3" id="5_cxp43"]
+[ext_resource type="Script" uid="uid://cgo7viabsyne1" path="res://scripts/C# translations/dj_root_translated.cs" id="6_wrlig"]
+
+[node name="DJ" type="Node3D"]
+script = ExtResource("1_5dmrc")
+sounds = Dictionary[String, AudioStream]({
+"Note_E": ExtResource("2_bmpte"),
+"Note_Q": ExtResource("3_wrlig"),
+"Note_R": ExtResource("4_ndg1b"),
+"Note_W": ExtResource("5_cxp43")
+})
+
+[node name="DJ_C#" type="Node3D" parent="."]
+script = ExtResource("6_wrlig")
