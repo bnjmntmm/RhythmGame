@@ -10,12 +10,12 @@
 
 [node name="Game_Scene_C#" type="Node3D"]
 script = ExtResource("1_xlvqg")
-_beatsPerMinute = 120
 _sounds = Array[AudioStream]([ExtResource("2_0a744"), ExtResource("3_srrh1"), ExtResource("4_fgs2t"), ExtResource("5_ivf0w")])
 _noteColors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1)
 
 [node name="DJ_C#" parent="." instance=ExtResource("2_vuyi1")]
 
 [node name="Player_C#" parent="." instance=ExtResource("3_vuyi1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
 
 [node name="PlayerSounds" type="AudioStreamPlayer" parent="."]

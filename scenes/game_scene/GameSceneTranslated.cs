@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -17,22 +18,26 @@ public partial class GameSceneTranslated : Node
     [Export] private double _perfectTimingThreshold = 0.05;
     [Export] private double _greatTimingThreshold = 0.15;
     [Export] private double _goodTimingThreshold = 0.25;
-
-    //private Control fadeOverlay;
-    //private Control pauseOverlay;
     private Note[] _notes;
     private DjRootTranslated _djNode;
     private PlayerTranslated _playerNode;
     private AudioStreamPlayer _playerSounds;
     private int _noteToHitIndex = 1;
-    //private Songs songNode;
-    //private Node inputController;
+    private int _correctNoteHits = 0;
+    private bool _playedWrongNote = true;
 
-    //private Array songKeys;
-    //private Array playedSongByDJ;
 
     public double BeatsPerMinute => _beatsPerMinute;
     public AudioStream[] Sounds => _sounds;
+
+    [Signal] public delegate void GameOverEventHandler();
+    [Signal] public delegate void PlayerAtDJEventHandler();
+
+
+    [ExportCategory("PlayerStageControl")]
+    private Node3D _stages;
+    private int stageCount;
+    private int currentStage = 0;
 
     public override void _Ready()
     {
@@ -45,6 +50,9 @@ public partial class GameSceneTranslated : Node
         _playerNode.KeyPressed += _playerNode_OnKeyPressed;
         _playerNode.KeyReleased += _playerNode_OnKeyReleased; ;
         _playerSounds = GetNode<AudioStreamPlayer>("PlayerSounds") as AudioStreamPlayer;
+        _stages = GetNode<Node3D>("World/Stages");
+        stageCount = _stages.GetChildCount();
+        currentStage = _playerNode.currentStage;
         var noteKeys = InputMap.GetActions().Where((a) => a.ToString().StartsWith("Note")).ToArray();
         _notes = new Note[_sounds.Length];
 
@@ -54,23 +62,6 @@ public partial class GameSceneTranslated : Node
             _notes[i] = new(noteKeys[i], _noteColors[i], sound, i);
         }
 
-        //songNode = GetNode<Songs>("Songs");
-        //inputController = GetNode<Node>("InputController");
-
-        //UserShouldStartLabel = GetNode<Label>("UILAYER/UserShouldStartLabel");
-        //GameOverScreen = GetNode<Control>("UILAYER/GameOverScreen");
-
-        // Connect custom signal
-        //inputController.Connect("player_thrown_out", new Callable(this, nameof(GameOver)));
-
-        // Only for transition and pause
-        //fadeOverlay.Visible = true;
-
-        //songKeys = songNode.songs.Keys;
-
-        // Wenn du die DJ-Sequenz abspielen willst:
-        // playedSongByDJ = await djNode.AsyncPlaySongSequence(songNode.Songs[songKeys[0]]);
-        // UserShouldStartLabel.Show();
     }
 
     private void _playerNode_OnKeyReleased(string keyActionName, double keyHoldTime)
@@ -92,10 +83,12 @@ public partial class GameSceneTranslated : Node
                 else if(keyHoldTime < 90.0 / _beatsPerMinute)
                 {
                     GD.Print("Held Correct Note but for too short");
+                    _correctNoteHits++;
                 }
                 else
                 {
                     GD.Print("Perfect: Held Correct Note");
+                    _correctNoteHits++;
                 }
             }
             _noteToHitIndex++;
@@ -106,11 +99,18 @@ public partial class GameSceneTranslated : Node
     {
         //dj just stopped playing (but tact is not quite over), this is just to allow the user to begin playing right after the last note from the dj
         _noteToHitIndex = 1;
+        _correctNoteHits = 0;
     }
 
+    //new tact
     private void _djNode_OnPlayingTurnChanged(bool isDjPlaying)
     {
-        //new tact
+        //player did not play 4 notes 
+        if(isDjPlaying && _correctNoteHits != 4 && _playedWrongNote == false)
+        {
+            MoveToPreviousStage();           
+        }
+        _playedWrongNote = false;
     }
 
     private void _playerNode_OnKeyPressed(string keyActionName)
@@ -135,15 +135,24 @@ public partial class GameSceneTranslated : Node
 
         if(_djNode.noteIndexes[_noteToHitIndex - 1] == _notes.First((n) => n.actionName == keyActionName).index)
         {
+            _correctNoteHits++;
+            if(_correctNoteHits == 4){
+                MoveToNextStage();
+            }
             //GD.Print("Played Correct Note");
+            // here invoke the signal to play the note
         }
         else if(_djNode.noteIndexes[_noteToHitIndex - 1] == -1)
         {
             GD.Print("Note was supposed to be held");
+            MoveToPreviousStage();
+            _playedWrongNote = true;
         }
         else
         {
             GD.Print("Played Wrong Note");
+            MoveToPreviousStage();
+            _playedWrongNote = true;
             return;
         }
 
@@ -197,8 +206,50 @@ public partial class GameSceneTranslated : Node
         _noteToHitIndex++;
     }
 
-    public override void _Process(double delta)
-    {
+    public void MoveToNextStage(){
+        if (currentStage < stageCount - 1){
+            currentStage++;
+            _playerNode.currentStage = currentStage;
+
+            // move to postion, currentStage +1 will current_stage + 1 would be the note via the index?
+            var stage = _stages.GetChild(currentStage) as Node3D;
+            GD.Print(stage.Name);
+            var targetPosition = stage.GlobalPosition;
+            _playerNode.targetPosition = targetPosition;
+            _playerNode.shouldMove = true;
+            if (currentStage == stageCount - 1){
+                GD.Print("REACHED THE DJ");
+                EmitSignal(SignalName.PlayerAtDJ);
+                //GameOver();
+            }
+        }else {
+            GD.Print("No more stages to move to. YOU AT THE DJ");
+            EmitSignal(SignalName.PlayerAtDJ);
+        }
+    
+    }
+    public void MoveToPreviousStage(){
+        if (currentStage > 0){
+            currentStage--;
+            _playerNode.currentStage = currentStage;
+
+            // move to postion, currentStage +1 will current_stage + 1 would be the note via the index?
+            var stage = _stages.GetChild(currentStage) as Node3D;
+            GD.Print("moving back to stage: " +stage.Name);
+            var targetPosition = stage.GlobalPosition;
+            _playerNode.targetPosition = targetPosition;
+            _playerNode.shouldMove = true;
+            if (currentStage == 0){
+                GD.Print("REACHED THE Entrance,  LAST CHANCE");
+                //GameOver();
+            }
+        }else {
+            GD.Print("No more stages to move to. YOU AT THE ENTRANCE");
+            _djNode.BeatTimer.Stop();
+            EmitSignal(SignalName.GameOver);
+            
+        }
+    
     }
 
     //public override void _Input(InputEvent @event)

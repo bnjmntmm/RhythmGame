@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bddnqcxb37jlx"]
+[gd_scene load_steps=3 format=3 uid="uid://bddnqcxb37jlx"]
 
 [ext_resource type="Script" uid="uid://4xo2xl87j1qb" path="res://scenes/Player/PlayerTranslated.cs" id="1_w1xqv"]
+[ext_resource type="Texture2D" uid="uid://c42uymqfghgkx" path="res://assets/sprites/MC/main_char.png" id="2_geo75"]
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_w1xqv")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shaded = true
+texture = ExtResource("2_geo75")

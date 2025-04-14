@@ -12,8 +12,6 @@ const NOTE = preload("res://scenes/Note/note.tscn")
 	"Note_R" : Color.YELLOW
 }
 
-
-
 func _ready() -> void:
 	for input_string in colors:
 		var new_note = NOTE.instantiate()

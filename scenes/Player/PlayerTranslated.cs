@@ -14,9 +14,24 @@ public partial class PlayerTranslated : Node3D
 
     private Dictionary<string, double> _keyHoldTimers = [];
 
+    public int currentStage = 1;
+
+    public bool shouldMove = false;
+    public Vector3 targetPosition;
+    public float speed = 5f;
+    
+
     public override void _Ready()
     {
     }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (shouldMove){
+            MoveTowardsPosition(targetPosition, delta, speed);
+        }
+    }
+
 
     public override void _Process(double delta)
     {
@@ -114,6 +129,24 @@ public partial class PlayerTranslated : Node3D
                 _keyHoldTimers[NOTE_R] = 0;
             }
         }
+    }
+    public void MoveTowardsPosition(Vector3 toPosition, double delta, float speed)
+    {
+
+        var currentPos = GlobalPosition;
+        var direction = toPosition - currentPos;
+        var distanceToTarget = direction.Length();
+
+        if (distanceToTarget <= speed * delta){
+            GlobalPosition = toPosition;
+            shouldMove = false;
+
+        } else {
+            var moveVector = direction.Normalized() * (float)(speed * delta);
+            var newPosition = currentPos + moveVector;
+            GlobalPosition = newPosition;
+        }
+       
     }
 }
 
