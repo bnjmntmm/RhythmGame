@@ -255,6 +255,15 @@ public partial class GameSceneTranslated : Node
     
     }
 
+    public override void _Process(double delta)
+    {
+       if(_playerNode.AnimationPlayer.SpeedScale != (float)(_beatsPerMinute / 60.0))
+        {
+            _playerNode.AnimationPlayer.SpeedScale = (float)(_beatsPerMinute / 60.0);
+        }
+    }
+
+
     //public override void _Input(InputEvent @event)
     //{
     //    if(@event.IsActionPressed("pause") && !pauseOverlay.Visible)

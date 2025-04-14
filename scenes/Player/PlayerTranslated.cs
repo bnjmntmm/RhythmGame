@@ -8,6 +8,8 @@ public partial class PlayerTranslated : Node3D
     private const string NOTE_W = "Note_W";
     private const string NOTE_E = "Note_E";
     private const string NOTE_R = "Note_R";
+    
+    private AnimationPlayer _animationPlayer;
 
     public event Action<string> KeyPressed;
     public event Action<string, double> KeyReleased;
@@ -15,6 +17,7 @@ public partial class PlayerTranslated : Node3D
     private Dictionary<string, double> _keyHoldTimers = [];
 
     public int currentStage = 1;
+    public AnimationPlayer AnimationPlayer => _animationPlayer;
 
     public bool shouldMove = false;
     public Vector3 targetPosition;
@@ -23,6 +26,8 @@ public partial class PlayerTranslated : Node3D
 
     public override void _Ready()
     {
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationPlayer.Play("Default");
     }
 
     public override void _PhysicsProcess(double delta)
