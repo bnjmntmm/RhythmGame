@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bv24voc31k07j"]
 
 [ext_resource type="Script" uid="uid://84mcrdmd1ear" path="res://scenes/main_menu/main_menu_scene.gd" id="1_nleev"]
-[ext_resource type="Texture2D" uid="uid://t887wstgh7kh" path="res://icon.svg" id="1_ocixh"]
 [ext_resource type="PackedScene" uid="uid://wu517bdoesek" path="res://scenes/game_scene/game_scene.tscn" id="2_c05yd"]
 [ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="2_lx82y"]
 [ext_resource type="PackedScene" uid="uid://bydp7ekh305yk" path="res://scenes/settings/game_setting_scene.tscn" id="3_026m6"]
+[ext_resource type="Texture2D" uid="uid://c42uymqfghgkx" path="res://assets/sprites/MC/main_char.png" id="4_026m6"]
 
 [node name="MainMenuScene" type="Node2D"]
 script = ExtResource("1_nleev")
@@ -35,9 +35,10 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="TextureRect" type="TextureRect" parent="UI/CenterContainer/VBoxContainer/GameLogo/MarginContainer"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture = ExtResource("1_ocixh")
-stretch_mode = 2
+texture = ExtResource("4_026m6")
+expand_mode = 2
 
 [node name="GameLabel" type="Label" parent="UI/CenterContainer/VBoxContainer/GameLogo/MarginContainer"]
 visible = false
@@ -65,6 +66,14 @@ text = "Made by
 Jaron, Leona,
 Benjamin, Felipe"
 horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Contains Flashing Lights"
+uppercase = true
 
 [node name="FadeOverlay" parent="UI" instance=ExtResource("2_lx82y")]
 unique_name_in_owner = true
