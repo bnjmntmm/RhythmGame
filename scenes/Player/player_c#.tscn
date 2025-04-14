@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bddnqcxb37jlx"]
+
+[ext_resource type="Script" uid="uid://4xo2xl87j1qb" path="res://scenes/Player/PlayerTranslated.cs" id="1_w1xqv"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_w1xqv")

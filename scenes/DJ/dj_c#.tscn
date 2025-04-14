@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw316fthhocn1"]
+
+[ext_resource type="Script" uid="uid://cgo7viabsyne1" path="res://scenes/DJ/DjRootTranslated.cs" id="1_3c5g1"]
+[ext_resource type="AudioStream" uid="uid://bf4wsk50a1gna" path="res://assets/sounds/beat2.wav" id="2_re63s"]
+
+[node name="DJ_C#" type="Node3D"]
+script = ExtResource("1_3c5g1")
+
+[node name="Beat" type="Timer" parent="."]
+
+[node name="BeatSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_re63s")
+volume_db = -5.0
+
+[node name="MelodySound" type="AudioStreamPlayer" parent="."]
+volume_db = 1.405
