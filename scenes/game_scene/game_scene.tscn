@@ -1,11 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://wu517bdoesek"]
+[gd_scene load_steps=11 format=3 uid="uid://wu517bdoesek"]
 
 [ext_resource type="Script" uid="uid://bfifvjgalmb8y" path="res://scenes/game_scene/game_scene.gd" id="1_wmtvo"]
-[ext_resource type="Script" uid="uid://b85udssfj4tqa" path="res://scripts/lights.gd" id="6_j8flk"]
+[ext_resource type="Script" uid="uid://dn3n1cwl1gtbh" path="res://scenes/game_scene/Lights.cs" id="3_j8flk"]
 [ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="8_201br"]
 [ext_resource type="PackedScene" uid="uid://r853kbmqbp2l" path="res://scenes/settings/pause_overlay.tscn" id="9_j6s53"]
 [ext_resource type="PackedScene" uid="uid://d2aiomujijr4u" path="res://scenes/game_scene/game_scene_c#.tscn" id="10_jytbd"]
 [ext_resource type="PackedScene" uid="uid://dnhujf7fs0j61" path="res://scenes/game_over/game_over_screen.tscn" id="14_iprv4"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_j8flk"]
+top_radius = 10.0
+bottom_radius = 10.0
+height = 0.1
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lxttp"]
 sky_top_color = Color(0.11443, 0.14506, 0.187655, 1)
@@ -31,11 +36,11 @@ _beatsPerMinute = 120
 [node name="World" type="Node3D" parent="Game_Scene_C#"]
 
 [node name="Camera3D" type="Camera3D" parent="Game_Scene_C#/World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.732188, 2.46845, 6.64824)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.732188, 0.0329859, 6.64824)
 current = true
 
 [node name="Lights" type="Node3D" parent="Game_Scene_C#/World"]
-script = ExtResource("6_j8flk")
+script = ExtResource("3_j8flk")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Game_Scene_C#/World/Lights"]
 transform = Transform3D(0.863638, 0.0331777, -0.50302, 0.502649, 0.0193098, 0.864275, 0.0383879, -0.999263, -2.19877e-08, -7.49533, 5.40513, 0)
@@ -56,6 +61,10 @@ spot_angle = 31.54
 transform = Transform3D(-0.863638, -0.0331776, 0.50302, 0.502649, 0.0193098, 0.864275, -0.0383878, 0.999263, -2.0474e-08, 7.54817, 5.40513, 0)
 spot_range = 20.0
 spot_angle = 31.54
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game_Scene_C#/World/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("CylinderMesh_j8flk")
 
 [node name="Env" type="Node3D" parent="Game_Scene_C#/World"]
 

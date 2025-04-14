@@ -94,9 +94,10 @@ public partial class DjRootTranslated : Node3D
 
             if(_longNotePlaying == false)
             {
-                int index = GD.RandRange(0, _gameScene.Sounds.Length - 1);
-                _melodyAudioPlayer.Stream = _gameScene.Sounds[index];
+                int index = GD.RandRange(0, _gameScene.Notes.Length - 1);
+                _melodyAudioPlayer.Stream = _gameScene.Notes[index].sound;
                 _melodyAudioPlayer.Play();
+                _gameScene.Lights.ChangeLightToColor(_gameScene.Notes[index].color);
                 noteIndexes.Add(index);
                 GD.Print(index + 1);
 

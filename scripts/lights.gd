@@ -1,5 +1,5 @@
 extends Node3D
-
+class_name LightParent
 @export_color_no_alpha var base_color = Color.WHITE
 
 var lights : Array

@@ -22,13 +22,14 @@ public partial class GameSceneTranslated : Node
     private DjRootTranslated _djNode;
     private PlayerTranslated _playerNode;
     private AudioStreamPlayer _playerSounds;
+    private Lights _lights;
     private int _noteToHitIndex = 1;
     private int _correctNoteHits = 0;
     private bool _playedWrongNote = true;
 
-
+    public Note[] Notes => _notes;
     public double BeatsPerMinute => _beatsPerMinute;
-    public AudioStream[] Sounds => _sounds;
+    public Lights Lights => _lights;
 
     [Signal] public delegate void GameOverEventHandler();
     [Signal] public delegate void PlayerAtDJEventHandler();
@@ -49,8 +50,9 @@ public partial class GameSceneTranslated : Node
         _playerNode = GetNode<Node3D>("Player_C#") as PlayerTranslated;
         _playerNode.KeyPressed += _playerNode_OnKeyPressed;
         _playerNode.KeyReleased += _playerNode_OnKeyReleased; ;
-        _playerSounds = GetNode<AudioStreamPlayer>("PlayerSounds") as AudioStreamPlayer;
+        _playerSounds = GetNode<AudioStreamPlayer>("PlayerSounds");
         _stages = GetNode<Node3D>("World/Stages");
+        _lights = GetNode<Lights>("World/Lights");
         stageCount = _stages.GetChildCount();
         currentStage = _playerNode.currentStage;
         var noteKeys = InputMap.GetActions().Where((a) => a.ToString().StartsWith("Note")).ToArray();
@@ -124,6 +126,7 @@ public partial class GameSceneTranslated : Node
 
         _playerSounds.Stream = _notes.First((n) => n.actionName == keyActionName).sound;
         _playerSounds.Play();
+        _lights.ChangeLightToColor(_notes.First((n) => n.actionName == keyActionName).color);
 
         if(_noteToHitIndex > 4)
         {
