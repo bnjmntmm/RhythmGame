@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://wu517bdoesek"]
+[gd_scene load_steps=13 format=3 uid="uid://wu517bdoesek"]
 
 [ext_resource type="Script" uid="uid://bfifvjgalmb8y" path="res://scenes/game_scene/game_scene.gd" id="1_wmtvo"]
 [ext_resource type="Script" uid="uid://dn3n1cwl1gtbh" path="res://scenes/game_scene/Lights.cs" id="3_j8flk"]
 [ext_resource type="Texture2D" uid="uid://dmvygvci4l5cn" path="res://assets/Environment/0.2/Skybox_For Project.png" id="4_201br"]
 [ext_resource type="PackedScene" uid="uid://b78wmr4ci4e6" path="res://scenes/game_scene/stage.tscn" id="4_wmtvo"]
 [ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="8_201br"]
+[ext_resource type="PackedScene" uid="uid://ddv44bihyw7ks" path="res://scenes/game_scene/controls.tscn" id="9_dgii4"]
 [ext_resource type="PackedScene" uid="uid://r853kbmqbp2l" path="res://scenes/settings/pause_overlay.tscn" id="9_j6s53"]
 [ext_resource type="PackedScene" uid="uid://d2aiomujijr4u" path="res://scenes/game_scene/game_scene_c#.tscn" id="10_jytbd"]
 [ext_resource type="PackedScene" uid="uid://dnhujf7fs0j61" path="res://scenes/game_over/game_over_screen.tscn" id="14_iprv4"]
@@ -25,7 +26,8 @@ glow_enabled = true
 script = ExtResource("1_wmtvo")
 
 [node name="Game_Scene_C#" parent="." instance=ExtResource("10_jytbd")]
-_beatsPerMinute = 120
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0448961, -0.0680744, 0.00992143)
+_beatsPerMinute = 100
 
 [node name="World" type="Node3D" parent="Game_Scene_C#"]
 
@@ -111,5 +113,12 @@ text = "NOW YOU SHOULD PLAY THE SAME"
 [node name="GameOverScreen" parent="UILAYER" instance=ExtResource("14_iprv4")]
 visible = false
 menu_scene = "res://scenes/main_menu/main_menu_scene.tscn"
+
+[node name="Controls" parent="UILAYER" instance=ExtResource("9_dgii4")]
+unique_name_in_owner = true
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 1.0
+offset_bottom = -2.0
 
 [connection signal="on_complete_fade_out" from="UILAYER/FadeOverlay" to="." method="_on_fade_overlay_on_complete_fade_out"]

@@ -12,6 +12,7 @@ var playedSongByDJ
 func _ready() -> void:
 	## only for transition and pause
 	fade_overlay.visible = true
+	%Controls.show()
 	main_game_logic.connect("GameOver",game_over)
 	#pause_overlay.game_exited.connect(_save_game) ## if we wanna have save stats
 
@@ -27,3 +28,4 @@ func game_over():
 	
 func _on_fade_overlay_on_complete_fade_out() -> void:
 	game_over_screen.show()
+	%Controls.hide()

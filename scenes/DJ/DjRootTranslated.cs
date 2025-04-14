@@ -73,6 +73,12 @@ public partial class DjRootTranslated : Node3D
 
     private void OnTimeout()
     {
+        if(_gameScene.IsGameOver)
+        {
+            _timer.Stop();
+            return;
+        }
+
         if(_melodyCooldown == -4)
         {
             PlayingTurnChanged?.Invoke(_isPlaying);
@@ -101,7 +107,7 @@ public partial class DjRootTranslated : Node3D
                 noteIndexes.Add(index);
                 GD.Print(index + 1);
 
-                if(GD.RandRange(1, 4) == 4 && noteIndexes.Count != 4)
+                if(GD.RandRange(1, 4) == 1 && noteIndexes.Count != 4)
                 {
                     _longNotePlaying = true;
                 }

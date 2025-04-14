@@ -9,6 +9,8 @@ public partial class GameSceneTranslated : Node
     //[Export] private Control GameOverScreen;
     [Export, Range(1, 240)]
     private int _beatsPerMinute = 60;
+    [Export, Range(1, 240)]
+    private int _bpmChangeValue = 10;
     [Export]
     private AudioStream[] _sounds;
     [Export]
@@ -25,11 +27,13 @@ public partial class GameSceneTranslated : Node
     private Lights _lights;
     private int _noteToHitIndex = 1;
     private int _correctNoteHits = 0;
-    private bool _playedWrongNote = true;
+    private bool _isFirstTime = true;
+    private bool _isGameOver = false;
 
     public Note[] Notes => _notes;
     public double BeatsPerMinute => _beatsPerMinute;
     public Lights Lights => _lights;
+    public bool IsGameOver => _isGameOver;
 
     [Signal] public delegate void GameOverEventHandler();
     [Signal] public delegate void PlayerAtDJEventHandler();
@@ -82,7 +86,7 @@ public partial class GameSceneTranslated : Node
                 {
                     GD.Print("Did not hold key");
                 }
-                else if(keyHoldTime < 90.0 / _beatsPerMinute)
+                else if(keyHoldTime < 60.0 / _beatsPerMinute)
                 {
                     GD.Print("Held Correct Note but for too short");
                     _correctNoteHits++;
@@ -108,11 +112,23 @@ public partial class GameSceneTranslated : Node
     private void _djNode_OnPlayingTurnChanged(bool isDjPlaying)
     {
         //player did not play 4 notes 
-        if(isDjPlaying && _correctNoteHits != 4 && _playedWrongNote == false)
+        if(isDjPlaying && _correctNoteHits != 4 && _isFirstTime == false)
         {
-            MoveToPreviousStage();           
+            _beatsPerMinute -= _bpmChangeValue;
+            _djNode.BeatTimer.WaitTime = 60.0 / _beatsPerMinute;
+            MoveToPreviousStage();
         }
-        _playedWrongNote = false;
+        else if(_correctNoteHits == 4)
+        {
+            _beatsPerMinute += _bpmChangeValue;
+            _djNode.BeatTimer.WaitTime = 60.0 / _beatsPerMinute;
+            MoveToNextStage();
+        }
+
+        if(_isFirstTime == true)
+        {
+            _isFirstTime = false;
+        }
     }
 
     private void _playerNode_OnKeyPressed(string keyActionName)
@@ -139,24 +155,21 @@ public partial class GameSceneTranslated : Node
         if(_djNode.noteIndexes[_noteToHitIndex - 1] == _notes.First((n) => n.actionName == keyActionName).index)
         {
             _correctNoteHits++;
-            if(_correctNoteHits == 4){
-                MoveToNextStage();
-            }
             //GD.Print("Played Correct Note");
             // here invoke the signal to play the note
         }
         else if(_djNode.noteIndexes[_noteToHitIndex - 1] == -1)
         {
             GD.Print("Note was supposed to be held");
-            MoveToPreviousStage();
-            _playedWrongNote = true;
+            //MoveToPreviousStage();
+            //_playedWrongNote = true;
         }
         else
         {
             GD.Print("Played Wrong Note");
-            MoveToPreviousStage();
-            _playedWrongNote = true;
-            return;
+            //MoveToPreviousStage();
+            //_playedWrongNote = true;
+            //return;
         }
 
         // key was pressed too early
@@ -209,8 +222,10 @@ public partial class GameSceneTranslated : Node
         _noteToHitIndex++;
     }
 
-    public void MoveToNextStage(){
-        if (currentStage < stageCount - 1){
+    public void MoveToNextStage()
+    {
+        if(currentStage < stageCount - 1)
+        {
             currentStage++;
             _playerNode.currentStage = currentStage;
 
@@ -220,46 +235,57 @@ public partial class GameSceneTranslated : Node
             var targetPosition = stage.GlobalPosition;
             _playerNode.targetPosition = targetPosition;
             _playerNode.shouldMove = true;
-            if (currentStage == stageCount - 1){
+            if(currentStage == stageCount - 1)
+            {
                 GD.Print("REACHED THE DJ");
                 EmitSignal(SignalName.PlayerAtDJ);
                 //GameOver();
             }
-        }else {
+        }
+        else
+        {
             GD.Print("No more stages to move to. YOU AT THE DJ");
             EmitSignal(SignalName.PlayerAtDJ);
         }
-    
+
     }
-    public void MoveToPreviousStage(){
-        if (currentStage > 0){
+    public void MoveToPreviousStage()
+    {
+        if(currentStage > 0)
+        {
             currentStage--;
             _playerNode.currentStage = currentStage;
 
             // move to postion, currentStage +1 will current_stage + 1 would be the note via the index?
             var stage = _stages.GetChild(currentStage) as Node3D;
-            GD.Print("moving back to stage: " +stage.Name);
+            GD.Print("moving back to stage: " + stage.Name);
             var targetPosition = stage.GlobalPosition;
             _playerNode.targetPosition = targetPosition;
             _playerNode.shouldMove = true;
-            if (currentStage == 0){
+            if(currentStage == 0)
+            {
                 GD.Print("REACHED THE Entrance,  LAST CHANCE");
                 //GameOver();
             }
-        }else {
-            GD.Print("No more stages to move to. YOU AT THE ENTRANCE");
-            _djNode.BeatTimer.Stop();
-            EmitSignal(SignalName.GameOver);
-            
         }
-    
+        else
+        {
+            _playerNode.targetPosition = _playerNode.GlobalPosition + new Vector3(-10, 0, 0);
+            _playerNode.shouldMove = true;
+            GD.Print("No more stages to move to. YOU ARE AT THE ENTRANCE");
+            _djNode.BeatTimer.Stop();
+            _isGameOver = true;
+            EmitSignal(SignalName.GameOver);
+
+        }
+
     }
 
     public override void _Process(double delta)
     {
-       if(_playerNode.AnimationPlayer.SpeedScale != (float)(_beatsPerMinute / 60.0))
+        if(_playerNode.AnimationPlayer.SpeedScale != _beatsPerMinute / 60f)
         {
-            _playerNode.AnimationPlayer.SpeedScale = (float)(_beatsPerMinute / 60.0);
+            _playerNode.AnimationPlayer.SpeedScale = _beatsPerMinute / 60f;
         }
     }
 
