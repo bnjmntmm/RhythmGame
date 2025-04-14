@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccw2y3u65a5xc"]
+[gd_scene load_steps=7 format=3 uid="uid://ccw2y3u65a5xc"]
 
 [ext_resource type="Script" uid="uid://k45d6hbhqk8" path="res://scenes/DJ/dj_root.gd" id="1_5dmrc"]
 [ext_resource type="AudioStream" uid="uid://cruoc5yrgrx5p" path="res://assets/sounds/e6.mp3" id="2_bmpte"]
 [ext_resource type="AudioStream" uid="uid://c5rrsy6mc6nu4" path="res://assets/sounds/c6.mp3" id="3_wrlig"]
 [ext_resource type="AudioStream" uid="uid://b44io2o3qewom" path="res://assets/sounds/g6.mp3" id="4_ndg1b"]
 [ext_resource type="AudioStream" uid="uid://bl2v0tt3cqvrb" path="res://assets/sounds/d6.mp3" id="5_cxp43"]
+[ext_resource type="Texture2D" uid="uid://c3dvi04khk481" path="res://assets/sprites/dj/DJ_EmptyEye.png" id="6_wrlig"]
 
 [node name="DJ" type="Node3D"]
 script = ExtResource("1_5dmrc")
@@ -14,3 +15,7 @@ sounds = Dictionary[String, AudioStream]({
 "Note_R": ExtResource("4_ndg1b"),
 "Note_W": ExtResource("5_cxp43")
 })
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+texture = ExtResource("6_wrlig")
