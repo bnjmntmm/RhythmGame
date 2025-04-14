@@ -5,11 +5,11 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_pis2y")
-shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo = Color(0.369818, 0.355678, 0.391446, 1)
 shader_parameter/clamp_diffuse_to_max = false
-shader_parameter/cuts = 2
-shader_parameter/wrap = 0.0
-shader_parameter/steepness = null
+shader_parameter/cuts = 3
+shader_parameter/wrap = 9.5e-08
+shader_parameter/steepness = 1.0
 shader_parameter/use_attenuation = true
 shader_parameter/use_specular = true
 shader_parameter/specular_strength = 1.0
