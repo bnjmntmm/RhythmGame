@@ -15,6 +15,9 @@ public partial class GameSceneTranslated : Node
     private AudioStream[] _sounds;
     [Export]
     private Color[] _noteColors = [];
+    
+    [Export]
+    public bool playLongNotes = false;
 
 
     [Export] private double _perfectTimingThreshold = 0.05;

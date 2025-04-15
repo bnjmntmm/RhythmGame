@@ -15,6 +15,7 @@
 
 [node name="Game_Scene_C#" type="Node3D"]
 script = ExtResource("1_xlvqg")
+_bpmChangeValue = 20
 _sounds = Array[AudioStream]([ExtResource("2_0a744"), ExtResource("3_srrh1"), ExtResource("4_fgs2t"), ExtResource("5_ivf0w")])
 _noteColors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1)
 

@@ -122,7 +122,7 @@ public partial class DjRootTranslated : Node3D
                 noteIndexes.Add(index);
                 GD.Print(index + 1);
 
-                if (GD.RandRange(1, 4) == 1 && noteIndexes.Count != 4)
+                if (GD.RandRange(1, 4) == 1 && noteIndexes.Count != 4 && _gameScene.playLongNotes)
                 {
                     _longNotePlaying = true;
                 }
