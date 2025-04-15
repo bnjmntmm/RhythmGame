@@ -1,8 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnhujf7fs0j61"]
+[gd_scene load_steps=13 format=3 uid="uid://dnhujf7fs0j61"]
 
 [ext_resource type="Script" uid="uid://dt54w1rmjikxb" path="res://scenes/game_over/game_over_screen.gd" id="1_6nml5"]
-[ext_resource type="Texture2D" uid="uid://cdcgxspjhkqad" path="res://assets/sprites/ChatGPT Image 11. Apr. 2025, 11_30_26.png" id="1_xnqkv"]
+[ext_resource type="Texture2D" uid="uid://c3k20gnfa87hf" path="res://assets/sprites/UI/15042015_BackTo Menu.png" id="2_158n5"]
 [ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="3_158n5"]
+[ext_resource type="Texture2D" uid="uid://dbb5r0pybhq4e" path="res://assets/sprites/UI/15042015_QuitGame.png" id="3_qavbd"]
+[ext_resource type="Texture2D" uid="uid://deabwhmxu0136" path="res://assets/sprites/UI/15042015_GameOver.png" id="5_qysdl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_158n5"]
+texture = ExtResource("2_158n5")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gpd6v"]
+texture = ExtResource("2_158n5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qavbd"]
+texture = ExtResource("2_158n5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qysdl"]
+texture = ExtResource("3_qavbd")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qaxqa"]
+texture = ExtResource("3_qavbd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vid43"]
+texture = ExtResource("3_qavbd")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qysdl"]
 
 [node name="GameOverScreen" type="Control"]
 layout_mode = 3
@@ -13,37 +43,37 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6nml5")
 
-[node name="GameOverScreen" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_xnqkv")
-expand_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -303.0
-offset_top = -273.0
-offset_right = -27.0
-offset_bottom = -30.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="MenuButton" type="Button" parent="VBoxContainer"]
+[node name="MenuButton" type="Button" parent="."]
 layout_mode = 2
-text = "Back To Menu"
+offset_left = 840.0
+offset_top = 320.0
+offset_right = 1116.0
+offset_bottom = 458.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_158n5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gpd6v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qavbd")
+text = " 
+ 
+ 
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+ 
+ "
+
+[node name="QuitButton" type="Button" parent="."]
 layout_mode = 2
-text = "Quit Game"
+offset_left = 639.0
+offset_top = 458.0
+offset_right = 915.0
+offset_bottom = 596.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_qysdl")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qaxqa")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vid43")
+text = " 
+ 
+ 
+ 
+
+ "
 
 [node name="FadeOverlay" parent="." instance=ExtResource("3_158n5")]
 unique_name_in_owner = true
@@ -55,6 +85,27 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[connection signal="pressed" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(861.6, 508.92)
+layout_mode = 2
+offset_left = 47.0
+offset_top = 52.0
+offset_right = 908.6
+offset_bottom = 560.92
+mouse_filter = 2
+texture = ExtResource("5_qysdl")
+expand_mode = 1
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+offset_left = 912.0
+offset_top = 52.0
+offset_right = 1087.0
+offset_bottom = 560.0
+mouse_filter = 2
+theme_override_constants/separation = 175
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qysdl")
+
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="on_complete_fade_out" from="FadeOverlay" to="." method="_on_fade_overlay_on_complete_fade_out"]

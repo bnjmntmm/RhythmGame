@@ -15,9 +15,16 @@ public partial class PlayerTranslated : Node3D
     public event Action<string, double> KeyReleased;
 
     private Dictionary<string, double> _keyHoldTimers = [];
+    
+    private Sprite3D _mainSprite;
+
+    [Export] public Texture2D defaultTexture;
+    [Export] public Texture2D happyTexture;
+    [Export] public Texture2D angryTexture;
 
     public int currentStage = 1;
     public AnimationPlayer AnimationPlayer => _animationPlayer;
+    public Sprite3D MainSprite => _mainSprite;
 
     public bool shouldMove = false;
     public Vector3 targetPosition;
@@ -26,6 +33,7 @@ public partial class PlayerTranslated : Node3D
 
     public override void _Ready()
     {
+        _mainSprite = GetNode<Sprite3D>("Sprite3D");
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         _animationPlayer.Play("Default");
     }

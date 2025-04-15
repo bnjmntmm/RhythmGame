@@ -18,13 +18,18 @@ public partial class DjRootTranslated : Node3D
     //    { "Note_E", Colors.Green },
     //    { "Note_R", Colors.Yellow }
     //};
-
+    
+    [Export] public Texture2D defaultTexture;
+    [Export] public Texture2D angryTexture;
+    public AnimationPlayer AnimationPlayer => _animationPlayer;
     public List<int> noteIndexes = [];
     public Timer BeatTimer => _timer;
     public int CurrentTactBeat => ((_totalBeats - 1) % 4) + 1;
     public int NextTactBeat => (CurrentTactBeat % 4) + 1;
     public bool IsPlaying => _isPlaying;
     public bool IsLongNotePlaying => _longNotePlaying;
+    public Sprite3D MainSprite => _mainSprite;
+    
 
     public event Action<bool> PlayingTurnChanged;
     public event Action StoppedPlaying;
@@ -39,6 +44,8 @@ public partial class DjRootTranslated : Node3D
     private int _totalBeats = 0;
     private bool _isPlaying = false;
     private bool _longNotePlaying = false;
+    private AnimationPlayer _animationPlayer;
+    private Sprite3D _mainSprite;
 
     public override void _Ready()
     {
@@ -69,17 +76,21 @@ public partial class DjRootTranslated : Node3D
         _gameScene = GetParent<GameSceneTranslated>();
         _beatAudioPlayer = GetNode<AudioStreamPlayer>("BeatSound");
         _melodyAudioPlayer = GetNode<AudioStreamPlayer>("MelodySound");
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationPlayer.Play("Default");
+        _mainSprite = GetNode<Sprite3D>("Sprite3D");
     }
 
     private void OnTimeout()
     {
-        if(_gameScene.IsGameOver)
+        GD.Print(_gameScene.IsGameOver);
+        if (_gameScene.IsGameOver)
         {
             _timer.Stop();
             return;
         }
 
-        if(_melodyCooldown == -4)
+        if (_melodyCooldown == -4)
         {
             PlayingTurnChanged?.Invoke(_isPlaying);
             _melodyCooldown = 4;
@@ -89,25 +100,29 @@ public partial class DjRootTranslated : Node3D
         _beatAudioPlayer.Play();
         _totalBeats++;
 
-        if(_melodyCooldown <= 0)
+        if (_melodyCooldown <= 0)
         {
-            if(_isPlaying == false)
+            if (_isPlaying == false)
             {
                 _isPlaying = true;
                 PlayingTurnChanged?.Invoke(_isPlaying);
                 noteIndexes.Clear();
             }
 
-            if(_longNotePlaying == false)
+            if (_longNotePlaying == false)
             {
                 int index = GD.RandRange(0, _gameScene.Notes.Length - 1);
                 _melodyAudioPlayer.Stream = _gameScene.Notes[index].sound;
                 _melodyAudioPlayer.Play();
+                foreach (SpotLight3D spotLight in _gameScene.StageScene.SpotLights)
+                {
+                    spotLight.LightColor = _gameScene.Notes[index].color;
+                }
                 _gameScene.Lights.ChangeLightToColor(_gameScene.Notes[index].color);
                 noteIndexes.Add(index);
                 GD.Print(index + 1);
 
-                if(GD.RandRange(1, 4) == 1 && noteIndexes.Count != 4)
+                if (GD.RandRange(1, 4) == 1 && noteIndexes.Count != 4)
                 {
                     _longNotePlaying = true;
                 }
@@ -124,7 +139,7 @@ public partial class DjRootTranslated : Node3D
 
         _melodyCooldown -= 1;
 
-        if(_melodyCooldown == -4)
+        if (_melodyCooldown == -4)
         {
             _isPlaying = false;
             StoppedPlaying?.Invoke();
@@ -158,7 +173,7 @@ public partial class DjRootTranslated : Node3D
 
     public override void _Process(double delta)
     {
-        if(_timer.WaitTime != 60.0 / _gameScene.BeatsPerMinute)
+        if (_timer.WaitTime != 60.0 / _gameScene.BeatsPerMinute)
         {
             _timer.WaitTime = 60.0 / _gameScene.BeatsPerMinute;
             GD.Print(_timer.WaitTime + ", " + _gameScene.BeatsPerMinute);

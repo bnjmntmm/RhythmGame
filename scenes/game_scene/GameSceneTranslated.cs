@@ -25,6 +25,8 @@ public partial class GameSceneTranslated : Node
     private PlayerTranslated _playerNode;
     private AudioStreamPlayer _playerSounds;
     private Lights _lights;
+
+    private StageRoot _stageScene; // THIS IS THE REAL STAGE SCENE AND NOT THE STAGES THE PLAYER GOES TO
     private int _noteToHitIndex = 1;
     private int _correctNoteHits = 0;
     private bool _isFirstTime = true;
@@ -34,6 +36,7 @@ public partial class GameSceneTranslated : Node
     public double BeatsPerMinute => _beatsPerMinute;
     public Lights Lights => _lights;
     public bool IsGameOver => _isGameOver;
+    public StageRoot StageScene => _stageScene;
 
     [Signal] public delegate void GameOverEventHandler();
     [Signal] public delegate void PlayerAtDJEventHandler();
@@ -57,6 +60,7 @@ public partial class GameSceneTranslated : Node
         _playerSounds = GetNode<AudioStreamPlayer>("PlayerSounds");
         _stages = GetNode<Node3D>("World/Stages");
         _lights = GetNode<Lights>("World/Lights");
+        _stageScene = GetNode<StageRoot>("World/Env/STAGE");
         stageCount = _stages.GetChildCount();
         currentStage = _playerNode.currentStage;
         var noteKeys = InputMap.GetActions().Where((a) => a.ToString().StartsWith("Note")).ToArray();
@@ -123,6 +127,9 @@ public partial class GameSceneTranslated : Node
             _beatsPerMinute += _bpmChangeValue;
             _djNode.BeatTimer.WaitTime = 60.0 / _beatsPerMinute;
             MoveToNextStage();
+        }else if(isDjPlaying == false){
+            _playerNode.MainSprite.Texture = _playerNode.defaultTexture;
+            _djNode.MainSprite.Texture = _djNode.defaultTexture;
         }
 
         if(_isFirstTime == true)
@@ -142,6 +149,10 @@ public partial class GameSceneTranslated : Node
 
         _playerSounds.Stream = _notes.First((n) => n.actionName == keyActionName).sound;
         _playerSounds.Play();
+        foreach(SpotLight3D spotLight in _stageScene.SpotLights)
+        {
+            spotLight.LightColor = _notes.First((n) => n.actionName == keyActionName).color;
+        }
         _lights.ChangeLightToColor(_notes.First((n) => n.actionName == keyActionName).color);
 
         if(_noteToHitIndex > 4)
@@ -235,19 +246,16 @@ public partial class GameSceneTranslated : Node
             var targetPosition = stage.GlobalPosition;
             _playerNode.targetPosition = targetPosition;
             _playerNode.shouldMove = true;
+            _playerNode.MainSprite.Texture = _playerNode.happyTexture;
             if(currentStage == stageCount - 1)
             {
                 GD.Print("REACHED THE DJ");
                 EmitSignal(SignalName.PlayerAtDJ);
                 //GameOver();
+            _djNode.BeatTimer.Stop();
+            
             }
         }
-        else
-        {
-            GD.Print("No more stages to move to. YOU AT THE DJ");
-            EmitSignal(SignalName.PlayerAtDJ);
-        }
-
     }
     public void MoveToPreviousStage()
     {
@@ -262,6 +270,8 @@ public partial class GameSceneTranslated : Node
             var targetPosition = stage.GlobalPosition;
             _playerNode.targetPosition = targetPosition;
             _playerNode.shouldMove = true;
+            _playerNode.MainSprite.Texture = _playerNode.angryTexture;
+            _djNode.MainSprite.Texture = _djNode.angryTexture;
             if(currentStage == 0)
             {
                 GD.Print("REACHED THE Entrance,  LAST CHANCE");
@@ -276,7 +286,6 @@ public partial class GameSceneTranslated : Node
             _djNode.BeatTimer.Stop();
             _isGameOver = true;
             EmitSignal(SignalName.GameOver);
-
         }
 
     }
@@ -287,6 +296,13 @@ public partial class GameSceneTranslated : Node
         {
             _playerNode.AnimationPlayer.SpeedScale = _beatsPerMinute / 60f;
         }
+        
+        if(_djNode.AnimationPlayer.SpeedScale != _beatsPerMinute / 60f)
+        {
+            _djNode.AnimationPlayer.SpeedScale = _beatsPerMinute / 60f;
+        }
+
+
     }
 
 

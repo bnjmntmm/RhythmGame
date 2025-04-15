@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bddnqcxb37jlx"]
 
 [ext_resource type="Script" uid="uid://4xo2xl87j1qb" path="res://scenes/Player/PlayerTranslated.cs" id="1_w1xqv"]
-[ext_resource type="Texture2D" uid="uid://c42uymqfghgkx" path="res://assets/sprites/MC/main_char.png" id="2_geo75"]
+[ext_resource type="Texture2D" uid="uid://u7anh7tsu3ob" path="res://assets/sprites/UI/15042015_MC.png" id="2_geo75"]
 
 [sub_resource type="Animation" id="Animation_geo75"]
 resource_name = "walk"
@@ -44,8 +44,7 @@ _data = {
 script = ExtResource("1_w1xqv")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-shaded = true
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 texture = ExtResource("2_geo75")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

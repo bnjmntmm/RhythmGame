@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://rv1uv8vwvijm"]
+
+[ext_resource type="Texture2D" uid="uid://bixsg3726oh03" path="res://assets/sprites/UI/15042025_foreground_left.png" id="1_lxmge"]
+[ext_resource type="Texture2D" uid="uid://b1glscaq25dmi" path="res://assets/sprites/UI/15042025_foreground_middle.png" id="2_1voge"]
+
+[node name="ForegroundUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Left" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -144.0
+offset_top = -117.0
+offset_right = 328.0
+offset_bottom = 414.0
+texture = ExtResource("1_lxmge")
+expand_mode = 1
+
+[node name="Middle" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 560.0
+offset_top = -59.0
+offset_right = 964.0
+offset_bottom = 179.0
+texture = ExtResource("2_1voge")
+expand_mode = 1

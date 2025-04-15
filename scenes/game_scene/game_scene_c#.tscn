@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2aiomujijr4u"]
+[gd_scene load_steps=13 format=3 uid="uid://d2aiomujijr4u"]
 
 [ext_resource type="Script" uid="uid://bsua1ua77vwgq" path="res://scenes/game_scene/GameSceneTranslated.cs" id="1_xlvqg"]
 [ext_resource type="AudioStream" uid="uid://qk8d0mxiipv5" path="res://assets/sounds/synth_c.wav" id="2_0a744"]
@@ -7,6 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://bddnqcxb37jlx" path="res://scenes/Player/player_c#.tscn" id="3_vuyi1"]
 [ext_resource type="AudioStream" uid="uid://dxal3hxe4aclh" path="res://assets/sounds/synth_f#.wav" id="4_fgs2t"]
 [ext_resource type="AudioStream" uid="uid://ctget4vxmqfk0" path="res://assets/sounds/synth_b.wav" id="5_ivf0w"]
+[ext_resource type="Texture2D" uid="uid://bfr7qsr4xu185" path="res://assets/sprites/UI/15042015_DJ.png" id="7_s15qg"]
+[ext_resource type="Texture2D" uid="uid://bbn8auitujuef" path="res://assets/sprites/UI/15042015_DJ_angry.png" id="8_3p6w4"]
+[ext_resource type="Texture2D" uid="uid://u7anh7tsu3ob" path="res://assets/sprites/UI/15042015_MC.png" id="8_ivf0w"]
+[ext_resource type="Texture2D" uid="uid://dt5btsdtjdusg" path="res://assets/sprites/UI/15042015_MC_happy.png" id="9_2kct2"]
+[ext_resource type="Texture2D" uid="uid://mvvpqnnv6cpc" path="res://assets/sprites/UI/15042015_MC_angry.png" id="10_s15qg"]
 
 [node name="Game_Scene_C#" type="Node3D"]
 script = ExtResource("1_xlvqg")
@@ -14,9 +19,14 @@ _sounds = Array[AudioStream]([ExtResource("2_0a744"), ExtResource("3_srrh1"), Ex
 _noteColors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1)
 
 [node name="DJ_C#" parent="." instance=ExtResource("2_vuyi1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4172, 7.39409, 0)
+defaultTexture = ExtResource("7_s15qg")
+angryTexture = ExtResource("8_3p6w4")
 
 [node name="Player_C#" parent="." instance=ExtResource("3_vuyi1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3.6, 0)
+defaultTexture = ExtResource("8_ivf0w")
+happyTexture = ExtResource("9_2kct2")
+angryTexture = ExtResource("10_s15qg")
 
 [node name="PlayerSounds" type="AudioStreamPlayer" parent="."]

@@ -45,7 +45,14 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
 
+[node name="MainMenuButton" type="Button" parent="VBoxContainer/MenuContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Go to Menu"
+
 [node name="ExitButton" type="Button" parent="VBoxContainer/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Leave Game"
+
+[connection signal="pressed" from="VBoxContainer/MenuContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

@@ -8,6 +8,7 @@ signal game_exited
 @onready var settings_container: VBoxContainer = %SettingsContainer
 @onready var menu_container: VBoxContainer = %MenuContainer
 @onready var back_button: Button = $VBoxContainer/SettingsContainer/BackButton
+const MAIN_MENU_SCENE = preload("res://scenes/main_menu/main_menu_scene.tscn")
 
 func _ready() -> void:
 	resume_button.pressed.connect(_resume)
@@ -44,3 +45,8 @@ func _unhandled_input(event):
 			_resume()
 		if settings_container.visible:
 			_pause_menu()
+
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu_scene.tscn")

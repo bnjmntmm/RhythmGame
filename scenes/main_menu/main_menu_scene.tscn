@@ -1,10 +1,70 @@
-[gd_scene load_steps=6 format=3 uid="uid://bv24voc31k07j"]
+[gd_scene load_steps=25 format=3 uid="uid://bv24voc31k07j"]
 
 [ext_resource type="Script" uid="uid://84mcrdmd1ear" path="res://scenes/main_menu/main_menu_scene.gd" id="1_nleev"]
 [ext_resource type="PackedScene" uid="uid://wu517bdoesek" path="res://scenes/game_scene/game_scene.tscn" id="2_c05yd"]
 [ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="2_lx82y"]
 [ext_resource type="PackedScene" uid="uid://bydp7ekh305yk" path="res://scenes/settings/game_setting_scene.tscn" id="3_026m6"]
-[ext_resource type="Texture2D" uid="uid://c42uymqfghgkx" path="res://assets/sprites/MC/main_char.png" id="4_026m6"]
+[ext_resource type="Texture2D" uid="uid://nx4nh8f3i60h" path="res://assets/sprites/UI/15042015_BeatWalk.png" id="4_026m6"]
+[ext_resource type="Texture2D" uid="uid://224wrkbblqlw" path="res://assets/sprites/UI/15042015_LeaveGame.png" id="5_llcg7"]
+[ext_resource type="Texture2D" uid="uid://r3r8ibvck1dv" path="res://assets/sprites/UI/15042015_Play.png" id="6_5d8sv"]
+[ext_resource type="Texture2D" uid="uid://dxangk4wl661f" path="res://assets/sprites/UI/15042015_Settings.png" id="7_32c5i"]
+[ext_resource type="Texture2D" uid="uid://bl1u46tfyuw4i" path="res://assets/sprites/UI/15042015_MadeBy.png" id="8_5d8sv"]
+[ext_resource type="PackedScene" uid="uid://b78wmr4ci4e6" path="res://scenes/game_scene/stage.tscn" id="10_ta8g2"]
+[ext_resource type="Texture2D" uid="uid://dmvygvci4l5cn" path="res://assets/Environment/0.2/Skybox_For Project.png" id="11_c1ahs"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_c1ahs"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_663as"]
+texture = ExtResource("5_llcg7")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ryit2"]
+texture = ExtResource("5_llcg7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ta8g2"]
+texture = ExtResource("5_llcg7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ax2ki"]
+texture = ExtResource("6_5d8sv")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2ym5a"]
+texture = ExtResource("6_5d8sv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c1ahs"]
+texture = ExtResource("6_5d8sv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cv5lp"]
+texture = ExtResource("7_32c5i")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f3x00"]
+texture = ExtResource("7_32c5i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3q1j1"]
+texture = ExtResource("7_32c5i")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3q1j1"]
+panorama = ExtResource("11_c1ahs")
+
+[sub_resource type="Sky" id="Sky_w5aja"]
+sky_material = SubResource("PanoramaSkyMaterial_3q1j1")
+
+[sub_resource type="Environment" id="Environment_663as"]
+background_mode = 2
+sky = SubResource("Sky_w5aja")
+tonemap_mode = 3
+glow_enabled = true
 
 [node name="MainMenuScene" type="Node2D"]
 script = ExtResource("1_nleev")
@@ -13,71 +73,84 @@ settings_scene = ExtResource("3_026m6")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="CenterContainer" type="CenterContainer" parent="UI"]
+[node name="SubViewPort" type="TextureRect" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="GameLogo" type="CenterContainer" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/CenterContainer/VBoxContainer/GameLogo"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="TextureRect" type="TextureRect" parent="UI/CenterContainer/VBoxContainer/GameLogo/MarginContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-texture = ExtResource("4_026m6")
-expand_mode = 2
-
-[node name="GameLabel" type="Label" parent="UI/CenterContainer/VBoxContainer/GameLogo/MarginContainer"]
-visible = false
-layout_mode = 2
-text = "THIS COULD BE OUR NAME"
-
-[node name="NewGameButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Play"
-
-[node name="SettingsButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-
-[node name="ExitButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Leave Game"
-
-[node name="Credits" type="MarginContainer" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/CenterContainer/VBoxContainer/Credits"]
-layout_mode = 2
-text = "Made by
-Jaron, Leona,
-Benjamin, Felipe"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Contains Flashing Lights"
-uppercase = true
+texture = SubResource("ViewportTexture_c1ahs")
 
 [node name="FadeOverlay" parent="UI" instance=ExtResource("2_lx82y")]
 unique_name_in_owner = true
 visible = false
 
+[node name="LeaveGameButton" type="Button" parent="UI"]
+custom_minimum_size = Vector2(268.667, 138)
+offset_left = 48.0
+offset_top = 458.0
+offset_right = 333.0
+offset_bottom = 596.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_663as")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ryit2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ta8g2")
+
+[node name="PlayGameButton" type="Button" parent="UI"]
+custom_minimum_size = Vector2(112.75, 79.375)
+offset_left = 375.0
+offset_top = 448.0
+offset_right = 488.0
+offset_bottom = 527.375
+theme_override_styles/hover = SubResource("StyleBoxTexture_ax2ki")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2ym5a")
+theme_override_styles/normal = SubResource("StyleBoxTexture_c1ahs")
+
+[node name="SettingsButton" type="Button" parent="UI"]
+custom_minimum_size = Vector2(151.5, 76.5)
+offset_left = 544.0
+offset_top = 499.0
+offset_right = 695.5
+offset_bottom = 578.375
+theme_override_styles/hover = SubResource("StyleBoxTexture_cv5lp")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_f3x00")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3q1j1")
+
+[node name="MadeByLogo" type="TextureRect" parent="UI"]
+custom_minimum_size = Vector2(346.333, 218.5)
+offset_left = 754.0
+offset_top = 395.0
+offset_right = 1100.33
+offset_bottom = 613.5
+texture = ExtResource("8_5d8sv")
+expand_mode = 2
+
+[node name="LogoImage" type="TextureRect" parent="UI"]
+custom_minimum_size = Vector2(543.75, 364.75)
+offset_left = 288.0
+offset_top = 49.0
+offset_right = 831.75
+offset_bottom = 413.75
+texture = ExtResource("4_026m6")
+expand_mode = 2
+
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
 bus = &"BGMusic"
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1280, 720)
+
+[node name="Node3D" type="Node3D" parent="SubViewport"]
+
+[node name="STAGE" parent="SubViewport/Node3D" instance=ExtResource("10_ta8g2")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport/Node3D"]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.75, -0.43301, 0, 0, 0)
+shadow_enabled = true
+sky_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport/Node3D"]
+environment = SubResource("Environment_663as")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.732188, 3.41848, -9.54697)

@@ -5,9 +5,9 @@ extends Node2D
 
 @onready var overlay: FadeOverlay = %FadeOverlay
 
-@onready var new_game_button: Button = $UI/CenterContainer/VBoxContainer/NewGameButton
-@onready var settings_button: Button = $UI/CenterContainer/VBoxContainer/SettingsButton
-@onready var exit_button: Button = $UI/CenterContainer/VBoxContainer/ExitButton
+@onready var new_game_button: Button = $UI/PlayGameButton
+@onready var settings_button: Button = $UI/SettingsButton
+@onready var exit_button: Button = $UI/LeaveGameButton
 
 var next_scene = game_scene
 var new_game = true
@@ -16,7 +16,7 @@ var new_game_button_2
 
 func _ready() -> void:
 	overlay.visible = true
-	new_game_button.disabled = game_scene == null
+	#new_game_button.disabled = game_scene == null
 	settings_button.disabled = settings_scene == null
 	
 	new_game_button.pressed.connect(_on_play_button_pressed)

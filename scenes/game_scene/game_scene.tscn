@@ -1,26 +1,32 @@
-[gd_scene load_steps=13 format=3 uid="uid://wu517bdoesek"]
+[gd_scene load_steps=18 format=3 uid="uid://wu517bdoesek"]
 
 [ext_resource type="Script" uid="uid://bfifvjgalmb8y" path="res://scenes/game_scene/game_scene.gd" id="1_wmtvo"]
 [ext_resource type="Script" uid="uid://dn3n1cwl1gtbh" path="res://scenes/game_scene/Lights.cs" id="3_j8flk"]
 [ext_resource type="Texture2D" uid="uid://dmvygvci4l5cn" path="res://assets/Environment/0.2/Skybox_For Project.png" id="4_201br"]
 [ext_resource type="PackedScene" uid="uid://b78wmr4ci4e6" path="res://scenes/game_scene/stage.tscn" id="4_wmtvo"]
+[ext_resource type="PackedScene" uid="uid://dsxlkb1nxfqcq" path="res://scenes/Crowd/crowd.tscn" id="6_3di6p"]
+[ext_resource type="Texture2D" uid="uid://d168gpsdfcsnd" path="res://assets/sprites/UI/15042015_Crowd_left.png" id="7_iprv4"]
+[ext_resource type="Texture2D" uid="uid://bx3xii1tkx52x" path="res://assets/sprites/UI/13042015_Crowd_left_top.png" id="8_1ypwy"]
 [ext_resource type="PackedScene" uid="uid://dagv1b3uqeepv" path="res://scenes/main_menu/fade_overlay/fade_overlay.tscn" id="8_201br"]
 [ext_resource type="PackedScene" uid="uid://ddv44bihyw7ks" path="res://scenes/game_scene/controls.tscn" id="9_dgii4"]
+[ext_resource type="PackedScene" uid="uid://bv88jp2i00e2r" path="res://scenes/win_scene/win_screen.tscn" id="9_hqmgi"]
 [ext_resource type="PackedScene" uid="uid://r853kbmqbp2l" path="res://scenes/settings/pause_overlay.tscn" id="9_j6s53"]
 [ext_resource type="PackedScene" uid="uid://d2aiomujijr4u" path="res://scenes/game_scene/game_scene_c#.tscn" id="10_jytbd"]
+[ext_resource type="PackedScene" uid="uid://rv1uv8vwvijm" path="res://scenes/main_menu/foreground_ui.tscn" id="11_hqmgi"]
 [ext_resource type="PackedScene" uid="uid://dnhujf7fs0j61" path="res://scenes/game_over/game_over_screen.tscn" id="14_iprv4"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wmtvo"]
 panorama = ExtResource("4_201br")
 
-[sub_resource type="Sky" id="Sky_w5aja"]
+[sub_resource type="Sky" id="Sky_j6s53"]
 sky_material = SubResource("PanoramaSkyMaterial_wmtvo")
 
 [sub_resource type="Environment" id="Environment_onqr8"]
 background_mode = 2
-sky = SubResource("Sky_w5aja")
+sky = SubResource("Sky_j6s53")
 tonemap_mode = 3
-glow_enabled = true
+glow_bloom = 0.06
+glow_blend_mode = 0
 
 [node name="GAME" type="Node"]
 script = ExtResource("1_wmtvo")
@@ -54,7 +60,7 @@ spot_range = 20.0
 spot_angle = 31.54
 
 [node name="SpotLight3D3" type="SpotLight3D" parent="Game_Scene_C#/World/Lights"]
-transform = Transform3D(-0.863638, -0.0331776, 0.50302, 0.502649, 0.0193098, 0.864275, -0.0383878, 0.999263, -2.0474e-08, 7.54817, 5.40513, 0)
+transform = Transform3D(-0.977509, 0.0528231, 0.204172, 0.210838, 0.222353, 0.951896, 0.00488388, 0.973534, -0.228489, 7.54817, 5.40513, 0)
 spot_range = 20.0
 spot_angle = 31.54
 
@@ -69,9 +75,16 @@ sky_mode = 2
 environment = SubResource("Environment_onqr8")
 
 [node name="STAGE" parent="Game_Scene_C#/World/Env" instance=ExtResource("4_wmtvo")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -1.33936, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00329018, -1.33936, 0.000693321)
+
+[node name="Crowd" parent="Game_Scene_C#/World/Env" instance=ExtResource("6_3di6p")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.171476, 0, -0.985047)
+crowdBackTexture = ExtResource("7_iprv4")
+crowdFrontTexture = ExtResource("8_1ypwy")
+wobbleAmplitude = 2.0
 
 [node name="Stages" type="Node3D" parent="Game_Scene_C#/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.6, 0)
 
 [node name="0" type="Node3D" parent="Game_Scene_C#/World/Stages"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
@@ -97,10 +110,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 unique_name_in_owner = true
 visible = false
 
-[node name="PauseOverlay" parent="UILAYER" instance=ExtResource("9_j6s53")]
+[node name="ForegroundUI" parent="UILAYER" instance=ExtResource("11_hqmgi")]
 unique_name_in_owner = true
-process_mode = 2
-visible = false
 
 [node name="UserShouldStartLabel" type="Label" parent="UILAYER"]
 visible = false
@@ -120,5 +131,16 @@ offset_left = 1.0
 offset_top = -2.0
 offset_right = 1.0
 offset_bottom = -2.0
+mouse_filter = 2
+
+[node name="WinScreen" parent="UILAYER" instance=ExtResource("9_hqmgi")]
+unique_name_in_owner = true
+visible = false
+menu_scene = "res://scenes/main_menu/main_menu_scene.tscn"
+
+[node name="PauseOverlay" parent="UILAYER" instance=ExtResource("9_j6s53")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
 
 [connection signal="on_complete_fade_out" from="UILAYER/FadeOverlay" to="." method="_on_fade_overlay_on_complete_fade_out"]

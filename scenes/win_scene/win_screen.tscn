@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://bv88jp2i00e2r"]
+
+[ext_resource type="Texture2D" uid="uid://kiwkuermubqs" path="res://assets/sprites/UI/15042015_HeleneFischer.png" id="1_suhhs"]
+[ext_resource type="Script" uid="uid://duiyms0oxs08b" path="res://scenes/win_scene/win_screen.gd" id="1_ughpl"]
+[ext_resource type="Texture2D" uid="uid://deup1kcic1fb8" path="res://assets/sprites/UI/15042015_What_.png" id="2_taqhn"]
+[ext_resource type="Texture2D" uid="uid://c3k20gnfa87hf" path="res://assets/sprites/UI/15042015_BackTo Menu.png" id="3_vjwxs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0d1tg"]
+texture = ExtResource("3_vjwxs")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ughpl"]
+texture = ExtResource("3_vjwxs")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vjwxs"]
+texture = ExtResource("3_vjwxs")
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ughpl")
+
+[node name="MCTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(528.194, 322.639)
+layout_mode = 0
+offset_left = -17.0
+offset_top = 332.0
+offset_right = 511.194
+offset_bottom = 655.0
+texture = ExtResource("1_suhhs")
+expand_mode = 2
+
+[node name="DJTEXTURE" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(664.115, 451.715)
+layout_mode = 0
+offset_left = 509.0
+offset_top = 214.0
+offset_right = 1173.11
+offset_bottom = 665.715
+texture = ExtResource("2_taqhn")
+expand_mode = 2
+
+[node name="BackToMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 146.0
+offset_right = 531.0
+offset_bottom = 284.0
+theme_override_styles/hover = SubResource("StyleBoxTexture_0d1tg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ughpl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vjwxs")
+
+[connection signal="pressed" from="BackToMenu" to="." method="_on_back_to_menu_pressed"]
